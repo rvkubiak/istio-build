@@ -1,0 +1,10 @@
+steps:
+- name: 'gcr.io/$PROJECT_ID/istio-build'
+  args: [ 'repo', 'init', '-u', 'https://github.com/costinm/istio-repo' ]
+
+- name: 'gcr.io/$PROJECT_ID/istio-build'
+  args: [ 'repo', 'sync', '-c' ]
+
+- name: 'gcr.io/$PROJECT_ID/istio-build'
+  args: [ 'bash', './release/create_release_archives.sh' ]
+  dir: 'istio'
