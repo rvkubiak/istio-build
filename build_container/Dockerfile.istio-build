@@ -5,7 +5,7 @@ FROM debian
 RUN apt-get -q update && apt-get install -qqy curl git gnupg2 openjdk-8-jdk python wget
 
 # Install Bazel
-RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" > /etc/apt/sources.list.d/bazel.list \
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" > /etc/apt/sources.list.d/bazel.list && \
     curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
     apt-get -q update && \
     apt-get install -qqy bazel
