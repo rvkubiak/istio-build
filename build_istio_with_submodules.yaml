@@ -1,0 +1,32 @@
+# To execute a build:
+#   gcloud container builds submit --config build_istio_release.yaml --no-source
+
+steps:
+- name: 'gcr.io/cloud-builders/git'
+  args: [ 'clone', '--recursive', 'https://github.com/rvkubiak/istio' ]
+  id: 'sync'
+
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'test', '--test_output=errors', '//...' ]
+  dir: 'istio/auth'
+  waitFor: 'sync'
+
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'test', '--test_output=errors', '//...' ]
+  dir: 'istio/mixer'
+  waitFor: 'sync'
+
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'test', '--test_output=errors', '//...' ]
+  dir: 'istio/pilot'
+  waitFor: 'sync'
+
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'build', '//...' ]
+  dir: 'istio'
+
+- name: 'gcr.io/$PROJECT_ID/istio-builder'
+  args: [ 'bash', './release/create_release_archives.sh' ]
+  dir: 'istio'
+
+timeout: 1800s
