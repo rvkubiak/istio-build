@@ -5,12 +5,12 @@ steps:
 - name: 'gcr.io/cloud-builders/git'
   args: [ 'clone', 'https://github.com/istio/istio' ]
 
-- name: 'gcr.io/$PROJECT_ID/istio-builder'
-  args: [ 'bazel', 'test', '//...' ]
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'test', '--test_output=errors', '//...' ]
   dir: 'istio'
 
-- name: 'gcr.io/$PROJECT_ID/istio-builder'
-  args: [ 'bazel', 'build', '//...' ]
+- name: 'gcr.io/cloud-builders/bazel'
+  args: [ 'build', '//...' ]
   dir: 'istio'
 
 - name: 'gcr.io/$PROJECT_ID/istio-builder'
