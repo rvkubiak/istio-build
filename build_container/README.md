@@ -1,4 +1,4 @@
-# istio-build
+# istio-builder
 
 This config rebuilds the Docker container used to perform Istio builds and
 uploads to GCR.  This build should be run any time the dependencies defined in

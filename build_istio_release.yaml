@@ -5,6 +5,14 @@ steps:
 - name: 'gcr.io/cloud-builders/git'
   args: [ 'clone', 'https://github.com/istio/istio' ]
 
-- name: 'gcr.io/$PROJECT_ID/istio-build'
+- name: 'gcr.io/$PROJECT_ID/istio-builder'
+  args: [ 'bazel', 'test', '//...' ]
+  dir: 'istio'
+
+- name: 'gcr.io/$PROJECT_ID/istio-builder'
+  args: [ 'bazel', 'build', '//...' ]
+  dir: 'istio'
+
+- name: 'gcr.io/$PROJECT_ID/istio-builder'
   args: [ 'bash', './release/create_release_archives.sh' ]
   dir: 'istio'

@@ -3,6 +3,6 @@
 
 steps:
   - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '-f', 'Dockerfile.istio-build', '-t', 'gcr.io/$PROJECT_ID/istio-builder', '.']
+    args: ['build', '-f', 'Dockerfile.istio-builder', '-t', 'gcr.io/$PROJECT_ID/istio-builder', '.']
 
 images: ['gcr.io/$PROJECT_ID/istio-builder']
