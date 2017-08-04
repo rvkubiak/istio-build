@@ -2,7 +2,13 @@
 #   gcloud container builds submit --config update_build_container.yaml .
 
 FROM debian
-RUN apt-get -q update && apt-get install -qqy curl git python wget
+RUN apt-get -q update && apt-get install -qqy curl git gnupg2 openjdk-8-jdk python wget
+
+# Install Bazel
+RUN echo "deb [arch=amd64] http://storage.googleapis.com/bazel-apt stable jdk1.8" > /etc/apt/sources.list.d/bazel.list \
+    curl https://bazel.build/bazel-release.pub.gpg | apt-key add - && \
+    apt-get -q update && \
+    apt-get install -qqy bazel
 
 # Install Repo tool
 RUN curl https://storage.googleapis.com/git-repo-downloads/repo > /usr/local/bin/repo && \
