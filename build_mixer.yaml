@@ -1,5 +1,5 @@
 # To execute a build:
-#   gcloud container builds submit --config build_istio_release.yaml --no-source
+#   gcloud container builds submit --config build_mixer_postsubmit.yaml --no-source
 
 steps:
 - name: 'gcr.io/cloud-builders/git'
