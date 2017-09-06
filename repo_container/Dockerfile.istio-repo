@@ -1,0 +1,26 @@
+# To rebuild and publish this container run:
+#   gcloud container builds submit --config update_repo_container.yaml .
+
+FROM debian
+
+# Create package paths
+RUN mkdir /debs
+RUN mkdir /rpms
+
+# Install packages
+RUN apt-get -q update && apt-get install -qqy apt-transport-https \
+    ca-certificates gnupg2 lsb-release python curl
+
+# Install Aptly (Apt repo)
+RUN curl https://www.aptly.info/pubkey.txt | apt-key add - && \
+    apt-get -q update && \
+    apt-get install -qqy aptly
+
+# Install createrepo (Yum repo)
+RUN apt-get install -qqy createrepo
+
+# Install gcloud
+RUN echo "deb https://packages.cloud.google.com/apt cloud-sdk-$(lsb_release -cs) main" > /etc/apt/sources.list.d/google-cloud-sdk.list && \
+    curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add - && \
+    apt-get -q update && \
+    apt-get install -qqy google-cloud-sdk

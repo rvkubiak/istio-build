@@ -1,0 +1,8 @@
+# To build and upload a new version of the repo container run:
+#   gcloud container builds submit --config update_repo_container.yaml .
+
+steps:
+  - name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '-f', 'Dockerfile.istio-repo', '-t', 'gcr.io/istio-builder-prototype/istio-repo', '.']
+
+images: ['gcr.io/istio-builder-prototype/istio-repo']
