@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<manifest>
+  <remote
+    name="istio"
+    fetch="https://github.com/"/>
+  <default
+    remote="istio"
+    revision="refs/heads/master"
+    sync-j="12"/>
+  <project name="istio/auth"/>
+  <project name="istio/mixer"/>
+  <project name="istio/pilot"/>
+  <project name="istio/proxy"/>
+</manifest>
